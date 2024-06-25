@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="TimeTracker.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentPage.Content>
+        <Grid>
+            <!--  Menu  -->
+            <Grid x:Name="Menu">
+                <Grid.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Right" Swiped="OnMenuGridRightSwiped" />
+                </Grid.GestureRecognizers>
+
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5, 1" StartPoint="0.5, 0">
+                        <GradientStop Color="#354f52" Offset="0" />
+                        <GradientStop Color="#52796f" Offset=".6" />
+                        <GradientStop Color="#84A98C" Offset="1" />
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*" />
+                        <ColumnDefinition Width="8*" />
+                    </Grid.ColumnDefinitions>
+
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="30"
+                            HorizontalTextAlignment="End"
+                            Margin="0,4,15,4"
+                            Text="Main Menu"
+                            TextColor="WhiteSmoke"
+                            TextDecorations="None"
+                            TextTransform="Uppercase" />
+
+                        <Label
+                            FontSize="25"
+                            HorizontalTextAlignment="End"
+                            Margin="0,4,15,4"
+                            Text="Projects"
+                            TextColor="WhiteSmoke" />
+
+                        <Label
+                            FontSize="25"
+                            HorizontalTextAlignment="End"
+                            Margin="0,4,15,4"
+                            Text="Stats"
+                            TextColor="WhiteSmoke" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Grid>
+
+            <!--  Main  -->
+            <Grid BackgroundColor="#CAD2C5" x:Name="MainGrid">
+                <Grid.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Left" Swiped="OnMainGridLeftSwiped" />
+                    <SwipeGestureRecognizer Direction="Right" Swiped="OnMenuGridRightSwiped" />
+                </Grid.GestureRecognizers>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="8*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <Label
+                    FontAttributes="Bold"
+                    FontFamily="SoyuzGrotesk"
+                    FontSize="28"
+                    Grid.Row="0"
+                    HorizontalTextAlignment="Start"
+                    Margin="10,0"
+                    Text="Time Tracker"
+                    TextColor="#52796F"
+                    TextType="Text"
+                    VerticalTextAlignment="Center" />
+
+                <Grid Grid.Row="1">
+                    <VerticalStackLayout>
+                        <Label
+                            FontFamily="SoyuzGrotesk"
+                            FontSize="24"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="Start"
+                            Margin="10,0"
+                            Text="recent projects"
+                            TextColor="#354F52"
+                            TextType="Text"
+                            VerticalTextAlignment="Center" />
+                        <Grid>
+
+                            <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
+                                <HorizontalStackLayout Margin="20,0">
+                                    <Button
+                                        BackgroundColor="#2F3E46"
+                                        Clicked="OnProjectClicked"
+                                        CornerRadius="10"
+                                        HeightRequest="90"
+                                        Margin="3,0"
+                                        WidthRequest="90" />
+                                    <Button
+                                        BackgroundColor="#2F3E46"
+                                        Clicked="OnProjectClicked"
+                                        CornerRadius="10"
+                                        HeightRequest="90"
+                                        Margin="3,0"
+                                        WidthRequest="90" />
+                                    <Button
+                                        BackgroundColor="#354F52"
+                                        Clicked="OnProjectClicked"
+                                        CornerRadius="10"
+                                        HeightRequest="90"
+                                        Margin="3,0"
+                                        WidthRequest="90" />
+                                    <Button
+                                        BackgroundColor="#354F52"
+                                        Clicked="OnProjectClicked"
+                                        CornerRadius="10"
+                                        HeightRequest="90"
+                                        Margin="3,0"
+                                        WidthRequest="90" />
+                                    <Button
+                                        BackgroundColor="#52796F"
+                                        Clicked="OnProjectClicked"
+                                        CornerRadius="10"
+                                        HeightRequest="90"
+                                        Margin="3,0"
+                                        WidthRequest="90" />
+                                    <Button
+                                        BackgroundColor="#52796F"
+                                        Clicked="OnProjectClicked"
+                                        CornerRadius="10"
+                                        HeightRequest="90"
+                                        Margin="3,0"
+                                        WidthRequest="90" />
+                                    <Button
+                                        BackgroundColor="#84A98C"
+                                        Clicked="OnProjectClicked"
+                                        CornerRadius="10"
+                                        HeightRequest="90"
+                                        Margin="3,0"
+                                        WidthRequest="90" />
+                                    <Button
+                                        BackgroundColor="#84A98C"
+                                        Clicked="OnProjectClicked"
+                                        CornerRadius="10"
+                                        HeightRequest="90"
+                                        Margin="3,0"
+                                        WidthRequest="90" />
+                                </HorizontalStackLayout>
+                            </ScrollView>
+                            <Grid>
+                                <Grid.Background>
+                                    <LinearGradientBrush>
+                                        <GradientStop Color="Transparent" Offset="0.6" />
+                                        <GradientStop Color="#CAD2C5" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                            </Grid>
+                        </Grid>
+                    </VerticalStackLayout>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
