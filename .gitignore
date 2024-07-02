@@ -1,3 +1,7 @@
 /.idea
 /TimeTracker/obj
 /TimeTracker/bin
+/TimeTracker.Data/bin
+/TimeTracker.Domain/obj
+/TimeTracker.Domain/bin
+/TimeTracker.Data/obj
