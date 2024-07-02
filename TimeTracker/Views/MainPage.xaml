@@ -41,15 +41,24 @@
                             FontSize="25"
                             HorizontalTextAlignment="End"
                             Margin="0,4,15,4"
-                            Text="Projects"
-                            TextColor="WhiteSmoke" />
+                            Text="New project"
+                            TextColor="WhiteSmoke">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCreateProjectTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
 
                         <Label
                             FontSize="25"
                             HorizontalTextAlignment="End"
                             Margin="0,4,15,4"
-                            Text="Stats"
-                            TextColor="WhiteSmoke" />
+                            Text="All projects"
+                            TextColor="WhiteSmoke">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSecondTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
                     </VerticalStackLayout>
                 </Grid>
             </Grid>
@@ -67,17 +76,17 @@
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
-                <Label
-                    FontAttributes="Bold"
-                    FontFamily="SoyuzGrotesk"
-                    FontSize="28"
-                    Grid.Row="0"
-                    HorizontalTextAlignment="Start"
-                    Margin="10,0"
-                    Text="Time Tracker"
-                    TextColor="#52796F"
-                    TextType="Text"
-                    VerticalTextAlignment="Center" />
+                <Grid>
+                    <Label
+                        FontFamily="SoyuzGrotesk"
+                        FontSize="28"
+                        Grid.Row="0"
+                        Margin="10,0"
+                        Text="Time Tracker"
+                        TextColor="#52796F"
+                        TextType="Text"
+                        VerticalTextAlignment="Center" />
+                </Grid>
 
                 <Grid Grid.Row="1">
                     <VerticalStackLayout>
@@ -92,78 +101,37 @@
                             TextType="Text"
                             VerticalTextAlignment="Center" />
                         <Grid>
+                            <CollectionView
+                                HorizontalOptions="Start"
+                                Margin="20,0"
+                                SelectionMode="Single"
+                                x:Name="ProjectsListView">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            BackgroundColor="#2F3E46"
+                                            Clicked="OnProjectClicked"
+                                            CornerRadius="10"
+                                            HeightRequest="90"
+                                            Margin="3,0"
+                                            WidthRequest="90" />
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
 
-                            <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
-                                <HorizontalStackLayout Margin="20,0">
-                                    <Button
-                                        BackgroundColor="#2F3E46"
-                                        Clicked="OnProjectClicked"
-                                        CornerRadius="10"
-                                        HeightRequest="90"
-                                        Margin="3,0"
-                                        WidthRequest="90" />
-                                    <Button
-                                        BackgroundColor="#2F3E46"
-                                        Clicked="OnProjectClicked"
-                                        CornerRadius="10"
-                                        HeightRequest="90"
-                                        Margin="3,0"
-                                        WidthRequest="90" />
-                                    <Button
-                                        BackgroundColor="#354F52"
-                                        Clicked="OnProjectClicked"
-                                        CornerRadius="10"
-                                        HeightRequest="90"
-                                        Margin="3,0"
-                                        WidthRequest="90" />
-                                    <Button
-                                        BackgroundColor="#354F52"
-                                        Clicked="OnProjectClicked"
-                                        CornerRadius="10"
-                                        HeightRequest="90"
-                                        Margin="3,0"
-                                        WidthRequest="90" />
-                                    <Button
-                                        BackgroundColor="#52796F"
-                                        Clicked="OnProjectClicked"
-                                        CornerRadius="10"
-                                        HeightRequest="90"
-                                        Margin="3,0"
-                                        WidthRequest="90" />
-                                    <Button
-                                        BackgroundColor="#52796F"
-                                        Clicked="OnProjectClicked"
-                                        CornerRadius="10"
-                                        HeightRequest="90"
-                                        Margin="3,0"
-                                        WidthRequest="90" />
-                                    <Button
-                                        BackgroundColor="#84A98C"
-                                        Clicked="OnProjectClicked"
-                                        CornerRadius="10"
-                                        HeightRequest="90"
-                                        Margin="3,0"
-                                        WidthRequest="90" />
-                                    <Button
-                                        BackgroundColor="#84A98C"
-                                        Clicked="OnProjectClicked"
-                                        CornerRadius="10"
-                                        HeightRequest="90"
-                                        Margin="3,0"
-                                        WidthRequest="90" />
-                                </HorizontalStackLayout>
-                            </ScrollView>
-                            <Grid>
-                                <Grid.Background>
-                                    <LinearGradientBrush>
-                                        <GradientStop Color="Transparent" Offset="0.6" />
-                                        <GradientStop Color="#CAD2C5" Offset="1" />
-                                    </LinearGradientBrush>
-                                </Grid.Background>
-                            </Grid>
+                            <!-- <Grid> -->
+                            <!--     <Grid.Background> -->
+                            <!--         <LinearGradientBrush EndPoint="1, 0.5" StartPoint="0, 0.5"> -->
+                            <!--             <GradientStop Color="Transparent" Offset="0.8" /> -->
+                            <!--             <GradientStop Color="#CAD2C5" Offset="0.9" /> -->
+                            <!--         </LinearGradientBrush> -->
+                            <!--     </Grid.Background> -->
+                            <!-- </Grid> -->
                         </Grid>
                     </VerticalStackLayout>
-
                 </Grid>
             </Grid>
         </Grid>

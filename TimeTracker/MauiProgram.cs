@@ -1,5 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Reflection;
+using Microsoft.Extensions.Logging;
+using TimeTracker.Data;
+using TimeTracker.Extensions;
+using TimeTracker.ViewModels.Projects;
 using TimeTracker.Views;
+using TimeTracker.Views.Projects;
 
 namespace TimeTracker;
 
@@ -11,10 +16,17 @@ public static class MauiProgram
 
         #region Views
 
-        builder.Services.AddTransient<MainPage>();
+        builder.Services
+            .AddTransient<MainPage>()
+            .AddTransient<CreateProjectPage>()
+            .AddTransient<ProjectListPage>();
+
+        builder.Services
+            .AddTransient<CreateProjectViewModel>()
+            .AddTransient<ProjectListViewModel>();
 
         #endregion
-        
+
         builder
             .UseMauiApp<App>()
             .ConfigureFonts(fonts =>
@@ -24,6 +36,13 @@ public static class MauiProgram
                 fonts.AddFont("SoyuzGrotesk-Bold.otf", "SoyuzGrotesk");
             });
 
+        builder.Services.AddTransient<LocalDbContext>((services) =>
+            new LocalDbContext(Path.Combine(FileSystem.AppDataDirectory, "time_tracker.db3")));
+
+        builder.Services
+            .AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
+            .AddMediatRHandlers();
+        
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
