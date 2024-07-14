@@ -82,7 +82,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TimeTracker.Data\TimeTracker.Data.csproj" />
+      <ProjectReference Include="..\TimeTracker.Domain\TimeTracker.Domain.csproj" />
+      <ProjectReference Include="..\TimeTracker.Shared\TimeTracker.Shared.csproj" />
     </ItemGroup>
 
 </Project>
