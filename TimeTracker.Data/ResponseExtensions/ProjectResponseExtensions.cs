@@ -12,7 +12,7 @@ public static class ProjectResponseExtensions
             DateCreated = project.DateCreated,
             DateUpdated = project.DateUpdated,
             Name = project.Name,
-            Description = project.Description,
+            Description = project.Description ?? string.Empty,
             Status = project.Status
         });
 }

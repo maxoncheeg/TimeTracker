@@ -1,8 +1,10 @@
-﻿namespace TimeTracker.Data.Entities.Abstract;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TimeTracker.Data.Entities.Abstract;
 
 public abstract class AbstractActivity : AbstractEntity
 {
-    public string Description { get; set; }
-    public DateTime Date { get; set; }
-    public TimeOnly Time { get; set; }
+    [MaxLength(128), Required] public string Description { get; set; } = string.Empty;
+    [Required] public DateTime Date { get; set; }
+    [Required] public TimeOnly Time { get; set; }
 }

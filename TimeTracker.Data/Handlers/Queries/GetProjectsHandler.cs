@@ -11,7 +11,7 @@ public class GetProjectsHandler(LocalDbContext context) : IRequestHandler<GetPro
     public async Task<IList<ProjectResponse>> Handle(GetProjectsQuery request, CancellationToken cancellationToken)
     {
         var query = context.Projects.Where(project =>
-                project.Name.Contains(request.Search) || project.Description.Contains(request.Search))
+                project.Name.Contains(request.Search) || (project.Description != null && project.Description.Contains(request.Search)))
             .Skip(request.Skip)
             .Take(request.Take)
             .ToProjectResponse();

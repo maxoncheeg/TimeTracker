@@ -1,6 +1,8 @@
-﻿namespace TimeTracker.Data.Entities.Abstract;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TimeTracker.Data.Entities.Abstract;
 
 public abstract class AbstractEntity
 {
-    public int Id { get; set; }
+    [Key] public int Id { get; set; }
 }

@@ -7,5 +7,5 @@ public class ProjectActivity : AbstractActivity
 {
     [ForeignKey(nameof(Project))]
     public int ProjectId { get; set; }
-    public Project Project { get; set; }
+    public required Project Project { get; set; }
 }
