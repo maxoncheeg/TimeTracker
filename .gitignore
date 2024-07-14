@@ -5,3 +5,5 @@
 /TimeTracker.Domain/obj
 /TimeTracker.Domain/bin
 /TimeTracker.Data/obj
+/TimeTracker.Shared/obj/Debug/net8.0/TimeTracker.Shared.csproj.AssemblyReference.cache
+/TimeTracker.Shared/obj/rider.project.model.nuget.info
