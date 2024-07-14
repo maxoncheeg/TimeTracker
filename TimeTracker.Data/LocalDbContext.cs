@@ -34,7 +34,7 @@ public class LocalDbContext : DbContext
         
         SQLitePCL.Batteries_V2.Init();
 
-        Database.EnsureDeleted();
+        //Database.EnsureDeleted();
         Database.Migrate();
     }
 

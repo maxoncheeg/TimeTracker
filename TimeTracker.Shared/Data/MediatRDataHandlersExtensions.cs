@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using TimeTracker.Data;
 using TimeTracker.Data.Handlers.Commands.Projects;
 using TimeTracker.Data.Handlers.Queries;
 using TimeTracker.Domain.CQRS.Commands.Projects;
@@ -16,4 +17,7 @@ public static class MediatRDataHandlersExtensions
             .AddScoped<IRequestHandler<GetProjectsQuery, IList<ProjectResponse>>, GetProjectsHandler>()
             //commands
             .AddScoped<IRequestHandler<CreateProjectCommand>, CreateProjectHandler>();
+
+    public static IServiceCollection AddDatabase(this IServiceCollection @this, string connectionString) =>
+        @this.AddTransient<LocalDbContext>(_ => new LocalDbContext(connectionString));
 }

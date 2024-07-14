@@ -36,10 +36,8 @@ public static class MauiProgram
                 fonts.AddFont("SoyuzGrotesk-Bold.otf", "SoyuzGrotesk");
             });
 
-        builder.Services.AddTransient<IDatabaseInitializer>(_ =>
-            new LocalDatabaseInitializer(Path.Combine(FileSystem.AppDataDirectory, "time_tracker.db3")));
-
         builder.Services
+            .AddDatabase(Path.Combine(FileSystem.AppDataDirectory, "time_tracker.db3"))
             .AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
             .ConfigureMediatRHandlers();
 
