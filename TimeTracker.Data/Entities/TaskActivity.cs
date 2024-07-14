@@ -7,5 +7,5 @@ public class TaskActivity : AbstractActivity
 {
     [ForeignKey(nameof(Task))]
     public int TaskId { get; set; }
-    public Task Task { get; set; }
+    public required Task Task { get; set; }
 }

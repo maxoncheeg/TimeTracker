@@ -20,6 +20,7 @@ public static class MauiProgram
             .AddTransient<CreateProjectPage>()
             .AddTransient<ProjectListPage>();
 
+        // viewModels
         builder.Services
             .AddTransient<CreateProjectViewModel>()
             .AddTransient<ProjectListViewModel>();
@@ -41,7 +42,7 @@ public static class MauiProgram
         builder.Services
             .AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
             .ConfigureMediatRHandlers();
-        
+
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

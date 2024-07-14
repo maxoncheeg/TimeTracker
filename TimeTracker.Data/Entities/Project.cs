@@ -1,17 +1,18 @@
-﻿using TimeTracker.Data.Entities.Abstract;
+﻿using System.ComponentModel.DataAnnotations;
+using TimeTracker.Data.Entities.Abstract;
 using TimeTracker.Domain.CQRS.Enums;
 
 namespace TimeTracker.Data.Entities;
 
 public class Project : AbstractEntity
 {
-    public string Name { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public ProjectStatus Status { get; set; }
-    public DateTime DateCreated { get; set; }
-    public DateTime DateUpdated { get; set; }
-    
-    public List<Task> Tasks { get; set; }
-    public List<ProjectActivity> Activities { get; set; }
-    public List<Plan> Plans { get; set; }
+    [MaxLength(64), Required] public string Name { get; set; } = string.Empty;
+    [MaxLength(256), Required] public string? Description { get; set; } = string.Empty;
+    [Required] public ProjectStatus Status { get; set; }
+    [Required] public DateTime DateCreated { get; set; }
+    [Required] public DateTime DateUpdated { get; set; }
+
+    public List<Task> Tasks { get; set; } = [];
+    public List<ProjectActivity> Activities { get; set; } = [];
+    public List<Plan> Plans { get; set; } = [];
 }
