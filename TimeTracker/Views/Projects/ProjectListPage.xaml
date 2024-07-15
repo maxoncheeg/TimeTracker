@@ -9,7 +9,8 @@
             <CollectionView
                 HorizontalOptions="Start"
                 ItemsSource="{Binding Projects}"
-                Margin="20,0">
+                Margin="20,0"
+                x:Name="CollectionView">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" />
                 </CollectionView.ItemsLayout>

@@ -103,6 +103,7 @@
                         <Grid>
                             <CollectionView
                                 HorizontalOptions="Start"
+                                ItemsSource="{Binding Projects}"
                                 Margin="20,0"
                                 SelectionMode="Single"
                                 x:Name="ProjectsListView">
@@ -112,11 +113,19 @@
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
                                         <Button
-                                            BackgroundColor="#2F3E46"
-                                            Clicked="OnProjectClicked"
+                                            BackgroundColor="{StaticResource MediumGreen}"
+                                            Command="{Binding BindingContext.OpenProjectCommand, Source={RelativeSource AncestorType={x:Type CollectionView}}}"
+                                            CommandParameter="{Binding Id}"
                                             CornerRadius="10"
+                                            FontFamily="CruinBold"
+                                            FontSize="25"
                                             HeightRequest="90"
+                                            HorizontalOptions="Center"
                                             Margin="3,0"
+                                            Text="{Binding Letters}"
+                                            TextColor="{StaticResource White}"
+                                            TextTransform="Uppercase"
+                                            VerticalOptions="Center"
                                             WidthRequest="90" />
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>

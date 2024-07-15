@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.Logging;
 using TimeTracker.Shared.Data;
+using TimeTracker.ViewModels;
 using TimeTracker.ViewModels.Projects;
 using TimeTracker.Views;
 using TimeTracker.Views.Projects;
@@ -22,6 +23,7 @@ public static class MauiProgram
 
         // viewModels
         builder.Services
+            .AddTransient<MainViewModel>()
             .AddTransient<CreateProjectViewModel>()
             .AddTransient<ProjectListViewModel>();
 
@@ -34,6 +36,9 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("SoyuzGrotesk-Bold.otf", "SoyuzGrotesk");
+                fonts.AddFont("sangha.ttf", "Sangha");
+                fonts.AddFont("Cruinn Regular.ttf", "CruinRegular");
+                fonts.AddFont("Cruinn Bold.ttf", "CruinBold");
             });
 
         builder.Services

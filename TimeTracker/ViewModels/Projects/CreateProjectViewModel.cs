@@ -31,6 +31,12 @@ public class CreateProjectViewModel(IMediator mediator) : AbstractViewModel
 
     private async void CreateProject(object? o, EventArgs eventArgs)
     {
+        if (string.IsNullOrEmpty(ProjectName))
+        {
+            SendMessage("Ошибка", "Пустое поле имени проекта!");
+            return;
+        }
+        
         await mediator.Send(new CreateProjectCommand()
         {
             Name = ProjectName,

@@ -38,6 +38,7 @@ public class ProjectListViewModel : AbstractViewModel
     public ProjectListViewModel(IMediator mediator)
     {
         _mediator = mediator;
+
     }
     
     public override async Task UpdateModel()

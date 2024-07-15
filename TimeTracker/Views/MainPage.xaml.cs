@@ -1,4 +1,6 @@
-﻿using TimeTracker.Views.Projects;
+﻿using TimeTracker.ViewModels;
+using TimeTracker.ViewModels.Messagers;
+using TimeTracker.Views.Projects;
 
 namespace TimeTracker.Views;
 
@@ -9,15 +11,31 @@ public partial class MainPage : ContentPage
 
     private readonly CreateProjectPage _createProjectPage;
     private readonly ProjectListPage _projectListPage;
+
+    private readonly MainViewModel _model;
     
-    public MainPage(CreateProjectPage createProjectPage, ProjectListPage projectListPage)
+    public MainPage(MainViewModel model, CreateProjectPage createProjectPage, ProjectListPage projectListPage)
     {
         InitializeComponent();
 
+        BindingContext = model;
+        _model = model;
+        model.MessageReceived += ModelOnMessageReceived;
+
         _createProjectPage = createProjectPage;
         _projectListPage = projectListPage;
+        
+        Loaded += OnLoaded;
+    }
 
-        ProjectsListView.ItemsSource = new List<object>() {1,2,3};
+    private async void ModelOnMessageReceived(object? sender, MessageEventArgs e)
+    {
+        await DisplayAlert(e.Title, e.Message, "OK");
+    }
+
+    private async void OnLoaded(object? sender, EventArgs e)
+    {
+        await _model.UpdateModel();
     }
 
     private void OnMenuGridRightSwiped(object? sender, SwipedEventArgs e)
@@ -45,13 +63,18 @@ public partial class MainPage : ContentPage
     {
         (sender as VisualElement)?.MakeFadeAnimation(FadeDuration);
 
-        await Navigation.PushModalAsync(_createProjectPage, true);
+         await Navigation.PushModalAsync(_createProjectPage, true);
     }
     
     private async void OnSecondTapped(object? sender, TappedEventArgs e)
     {
         (sender as VisualElement)?.MakeFadeAnimation(FadeDuration);
 
-        await Navigation.PushModalAsync(_projectListPage, true);
+         await Navigation.PushModalAsync(_projectListPage, true);
+         //
+         // Task.Factory.StartNew(()=>
+         // {
+         //     Navigation.PushModalAsync(_projectListPage, true);
+         // });
     }
 }

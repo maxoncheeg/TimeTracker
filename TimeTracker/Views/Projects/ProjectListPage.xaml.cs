@@ -1,26 +1,30 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimeTracker.ViewModels.Projects;
+using PropertyChangingEventArgs = Microsoft.Maui.Controls.PropertyChangingEventArgs;
 
 namespace TimeTracker.Views.Projects;
 
 public partial class ProjectListPage : ContentPage
 {
     private ProjectListViewModel _model;
-    
+
     public ProjectListPage(ProjectListViewModel model)
     {
         InitializeComponent();
-        
+
         BindingContext = model;
         _model = model;
         model.ObjectReceived += async (obj) => await DisplayAlert("MESSAGE", obj.ToString(), "okie-dokie");
-        
+
         Loaded += OnLoaded;
     }
+
 
     private async void OnLoaded(object? sender, EventArgs e)
     {

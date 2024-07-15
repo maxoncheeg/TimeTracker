@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TimeTracker.ViewModels.Messagers;
 
 namespace TimeTracker.ViewModels;
 
-public abstract class AbstractViewModel : INotifyPropertyChanged
+public abstract class AbstractViewModel : AbstractMessager, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
