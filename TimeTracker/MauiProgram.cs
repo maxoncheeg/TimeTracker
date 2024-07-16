@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using TimeTracker.Shared.Data;
 using TimeTracker.ViewModels;
@@ -30,7 +31,7 @@ public static class MauiProgram
         #endregion
 
         builder
-            .UseMauiApp<App>()
+            .UseMauiApp<App>().UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -38,6 +39,8 @@ public static class MauiProgram
                 fonts.AddFont("SoyuzGrotesk-Bold.otf", "SoyuzGrotesk");
                 fonts.AddFont("sangha.ttf", "Sangha");
                 fonts.AddFont("Cruinn Regular.ttf", "CruinRegular");
+                fonts.AddFont("Cruinn Light.ttf", "CruinLight");
+                fonts.AddFont("Cruinn Medium.ttf", "CruinMedium");
                 fonts.AddFont("Cruinn Bold.ttf", "CruinBold");
             });
 

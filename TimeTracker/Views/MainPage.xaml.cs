@@ -1,4 +1,6 @@
-﻿using TimeTracker.ViewModels;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using TimeTracker.ViewModels;
 using TimeTracker.ViewModels.Messagers;
 using TimeTracker.Views.Projects;
 
@@ -13,7 +15,7 @@ public partial class MainPage : ContentPage
     private readonly ProjectListPage _projectListPage;
 
     private readonly MainViewModel _model;
-    
+
     public MainPage(MainViewModel model, CreateProjectPage createProjectPage, ProjectListPage projectListPage)
     {
         InitializeComponent();
@@ -24,9 +26,17 @@ public partial class MainPage : ContentPage
 
         _createProjectPage = createProjectPage;
         _projectListPage = projectListPage;
-        
+
         Loaded += OnLoaded;
+        this.Appearing += OnAppearing;
     }
+
+    private async void OnAppearing(object? sender, EventArgs e)
+    {
+        OnMenuGridRightSwiped(this, null);
+        await _model.UpdateModel();
+    }
+
 
     private async void ModelOnMessageReceived(object? sender, MessageEventArgs e)
     {
@@ -38,7 +48,7 @@ public partial class MainPage : ContentPage
         await _model.UpdateModel();
     }
 
-    private void OnMenuGridRightSwiped(object? sender, SwipedEventArgs e)
+    private void OnMenuGridRightSwiped(object? sender, SwipedEventArgs? e)
     {
         MainGrid.TranslateTo(0, 0, AnimationDuration, Easing.CubicOut);
         MainGrid.RotateYTo(0, AnimationDuration, Easing.CubicOut);
@@ -50,31 +60,40 @@ public partial class MainPage : ContentPage
         MainGrid.TranslateTo(-Width * 0.3, Height * 0.3, AnimationDuration, Easing.CubicOut);
         MainGrid.RotateYTo(10, AnimationDuration, Easing.CubicOut);
         MainGrid.ScaleTo(0.9, AnimationDuration, Easing.CubicOut);
-        
     }
 
     private async void OnProjectClicked(object? sender, EventArgs e)
     {
         await DisplayAlert("x", "omg", "x");
     }
-    
-    
+
+
     private async void OnCreateProjectTapped(object? sender, TappedEventArgs e)
     {
-        (sender as VisualElement)?.MakeFadeAnimation(FadeDuration);
+        //(sender as VisualElement)?.MakeFadeAnimation(FadeDuration);
 
-         await Navigation.PushModalAsync(_createProjectPage, true);
+        await Navigation.PushModalAsync(_createProjectPage, true);
     }
-    
+
     private async void OnSecondTapped(object? sender, TappedEventArgs e)
     {
-        (sender as VisualElement)?.MakeFadeAnimation(FadeDuration);
+        //(sender as VisualElement)?.MakeFadeAnimation(FadeDuration);
 
-         await Navigation.PushModalAsync(_projectListPage, true);
-         //
-         // Task.Factory.StartNew(()=>
-         // {
-         //     Navigation.PushModalAsync(_projectListPage, true);
-         // });
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+        string text = "Загрузка проектов";
+        ToastDuration duration = ToastDuration.Short;
+        double fontSize = 14;
+
+        var toast = Toast.Make(text, duration, fontSize);
+
+        await toast.Show(cancellationTokenSource.Token);
+
+        await Navigation.PushModalAsync(_projectListPage, true);
+        //
+        // Task.Factory.StartNew(()=>
+        // {
+        //     Navigation.PushModalAsync(_projectListPage, true);
+        // });
     }
 }

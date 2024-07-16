@@ -36,34 +36,47 @@
 
             <Grid Grid.Row="1">
                 <VerticalStackLayout Margin="10,0">
-                    <Label FontFamily="CruinBold" FontSize="18">
+                    <Label FontSize="18">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Название проекта" TextColor="{StaticResource DarkGreen}" />
-                                <Span Text="*" TextColor="{StaticResource LightGreen}" />
+                                <Span
+                                    FontFamily="CruinMedium"
+                                    Text="Название проекта"
+                                    TextColor="{StaticResource DarkGreen}" />
+                                <Span
+                                    FontFamily="CruinMedium"
+                                    Text="*"
+                                    TextColor="{StaticResource LightGreen}" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                     <Entry
-                        FontFamily="CruinRegular"
+                        FontFamily="CruinLight"
+                        FontSize="16"
                         HorizontalTextAlignment="Center"
                         MaxLength="64"
                         Text="{Binding ProjectName}"
+                        TextColor="{StaticResource Black}"
                         x:Name="NameEntry" />
 
-                    <Label FontFamily="CruinBold" FontSize="18">
+                    <Label FontSize="18">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Описание" TextColor="{StaticResource DarkGreen}" />
+                                <Span
+                                    FontFamily="CruinMedium"
+                                    Text="Описание"
+                                    TextColor="{StaticResource DarkGreen}" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                     <Editor
-                        FontFamily="CruinRegular"
-                        HeightRequest="200"
+                        AutoSize="TextChanges"
+                        FontFamily="CruinLight"
+                        FontSize="16"
                         HorizontalTextAlignment="Center"
                         MaxLength="256"
                         Text="{Binding ProjectDescription}"
+                        TextColor="{StaticResource Black}"
                         x:Name="DescriptionEditor" />
 
                     <Button
@@ -71,7 +84,8 @@
                         Command="{Binding CreateProjectCommand}"
                         FontFamily="CruinBold"
                         FontSize="18"
-                        Text="СОЗДАТЬ" />
+                        Text="СОЗДАТЬ"
+                        TextColor="{StaticResource White}" />
                 </VerticalStackLayout>
             </Grid>
         </Grid>

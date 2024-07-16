@@ -46,7 +46,7 @@ public class MainViewModel : AbstractViewModel
 
     public override async Task UpdateModel()
     {
-        var result = await _mediator.Send(new GetProjectsQuery() { Take = 5 });
+        var result = await _mediator.Send(new GetProjectNamesByDateUpdatedQuery() { Take = 5 });
 
 
         _projects = [..result.Select(p => new UiProjectView(p.ProjectId, p.Name[..2]))];
