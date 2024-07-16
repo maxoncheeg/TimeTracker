@@ -1,14 +1,24 @@
-﻿using TimeTracker.Shared.Data;
+﻿using MediatR;
+using TimeTracker.Domain.CQRS.Commands.Repositories;
 using TimeTracker.Views;
 
 namespace TimeTracker;
 
 public partial class App : Application
 {
-    public App(MainPage page, IDatabaseInitializer initializer)
+    private readonly IMediator _mediator;
+    
+    public App(MainPage page, IMediator mediator)
     {
         InitializeComponent();
 
+        _mediator = mediator;
         MainPage = page;
+    }
+
+    protected override async void OnStart()
+    {
+        base.OnStart();
+        await _mediator.Send(new InitializeRepositoryCommand());
     }
 }

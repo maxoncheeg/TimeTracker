@@ -15,4 +15,11 @@ public static class ProjectResponseExtensions
             Description = project.Description ?? string.Empty,
             Status = project.Status
         });
+    
+    public static IQueryable<ProjectNameResponse> ToProjectNameResponse(this IQueryable<Project> @this) =>
+        @this.Select(project => new ProjectNameResponse()
+        {
+            ProjectId = project.Id,
+            Name = project.Name,
+        });
 }

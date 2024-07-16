@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using TimeTracker.Shared.Data;
+using TimeTracker.ViewModels;
 using TimeTracker.ViewModels.Projects;
 using TimeTracker.Views;
 using TimeTracker.Views.Projects;
@@ -22,24 +24,28 @@ public static class MauiProgram
 
         // viewModels
         builder.Services
+            .AddTransient<MainViewModel>()
             .AddTransient<CreateProjectViewModel>()
             .AddTransient<ProjectListViewModel>();
 
         #endregion
 
         builder
-            .UseMauiApp<App>()
+            .UseMauiApp<App>().UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("SoyuzGrotesk-Bold.otf", "SoyuzGrotesk");
+                fonts.AddFont("sangha.ttf", "Sangha");
+                fonts.AddFont("Cruinn Regular.ttf", "CruinRegular");
+                fonts.AddFont("Cruinn Light.ttf", "CruinLight");
+                fonts.AddFont("Cruinn Medium.ttf", "CruinMedium");
+                fonts.AddFont("Cruinn Bold.ttf", "CruinBold");
             });
 
-        builder.Services.AddTransient<IDatabaseInitializer>(_ =>
-            new LocalDatabaseInitializer(Path.Combine(FileSystem.AppDataDirectory, "time_tracker.db3")));
-
         builder.Services
+            .AddDatabase(Path.Combine(FileSystem.AppDataDirectory, "time_tracker.db3"))
             .AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
             .ConfigureMediatRHandlers();
 

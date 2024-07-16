@@ -4,7 +4,7 @@ using TimeTracker.Data.ResponseExtensions;
 using TimeTracker.Domain.CQRS.Queries.Projects;
 using TimeTracker.Domain.CQRS.Responses.Projects;
 
-namespace TimeTracker.Data.Handlers.Queries;
+namespace TimeTracker.Data.Handlers.Queries.Projects;
 
 public class GetProjectsHandler(LocalDbContext context) : IRequestHandler<GetProjectsQuery, IList<ProjectResponse>>
 {

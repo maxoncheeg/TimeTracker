@@ -3,10 +3,17 @@
 <ContentPage
     x:Class="TimeTracker.Views.Projects.CreateProjectPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid BackgroundColor="#CAD2C5" x:Name="MainGrid">
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*" />
                 <RowDefinition Height="8*" />
@@ -15,25 +22,70 @@
 
             <Grid>
                 <Label
-                    FontFamily="SoyuzGrotesk"
+                    FontFamily="CruinBold"
                     FontSize="28"
                     Grid.Row="0"
+                    HorizontalTextAlignment="Center"
                     Margin="10,0"
-                    Text="project creating"
-                    TextColor="#52796F"
+                    Text="Создание проекта"
+                    TextColor="{StaticResource DarkGreen}"
+                    TextTransform="Uppercase"
                     TextType="Text"
                     VerticalTextAlignment="Center" />
             </Grid>
 
             <Grid Grid.Row="1">
-                <VerticalStackLayout>
-                    <Label Text="Project Name" />
-                    <Entry Text="{Binding ProjectName}" />
+                <VerticalStackLayout Margin="10,0">
+                    <Label FontSize="18">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontFamily="CruinMedium"
+                                    Text="Название проекта"
+                                    TextColor="{StaticResource DarkGreen}" />
+                                <Span
+                                    FontFamily="CruinMedium"
+                                    Text="*"
+                                    TextColor="{StaticResource LightGreen}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Entry
+                        FontFamily="CruinLight"
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        MaxLength="64"
+                        Text="{Binding ProjectName}"
+                        TextColor="{StaticResource Black}"
+                        x:Name="NameEntry" />
 
-                    <Label Text="Project Description" />
-                    <Editor Text="{Binding ProjectDescription}" />
+                    <Label FontSize="18">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontFamily="CruinMedium"
+                                    Text="Описание"
+                                    TextColor="{StaticResource DarkGreen}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Editor
+                        AutoSize="TextChanges"
+                        FontFamily="CruinLight"
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        MaxLength="256"
+                        Text="{Binding ProjectDescription}"
+                        TextColor="{StaticResource Black}"
+                        x:Name="DescriptionEditor" />
 
-                    <Button Command="{Binding CreateProjectCommand}" Text="Create" />
+                    <Button
+                        BackgroundColor="{StaticResource MediumGreen}"
+                        Command="{Binding CreateProjectCommand}"
+                        FontFamily="CruinBold"
+                        FontSize="18"
+                        Text="СОЗДАТЬ"
+                        TextColor="{StaticResource White}" />
                 </VerticalStackLayout>
             </Grid>
         </Grid>

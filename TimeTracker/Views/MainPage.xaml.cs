@@ -1,4 +1,8 @@
-﻿using TimeTracker.Views.Projects;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using TimeTracker.ViewModels;
+using TimeTracker.ViewModels.Messagers;
+using TimeTracker.Views.Projects;
 
 namespace TimeTracker.Views;
 
@@ -9,18 +13,42 @@ public partial class MainPage : ContentPage
 
     private readonly CreateProjectPage _createProjectPage;
     private readonly ProjectListPage _projectListPage;
-    
-    public MainPage(CreateProjectPage createProjectPage, ProjectListPage projectListPage)
+
+    private readonly MainViewModel _model;
+
+    public MainPage(MainViewModel model, CreateProjectPage createProjectPage, ProjectListPage projectListPage)
     {
         InitializeComponent();
+
+        BindingContext = model;
+        _model = model;
+        model.MessageReceived += ModelOnMessageReceived;
 
         _createProjectPage = createProjectPage;
         _projectListPage = projectListPage;
 
-        ProjectsListView.ItemsSource = new List<object>() {1,2,3};
+        Loaded += OnLoaded;
+        this.Appearing += OnAppearing;
     }
 
-    private void OnMenuGridRightSwiped(object? sender, SwipedEventArgs e)
+    private async void OnAppearing(object? sender, EventArgs e)
+    {
+        OnMenuGridRightSwiped(this, null);
+        await _model.UpdateModel();
+    }
+
+
+    private async void ModelOnMessageReceived(object? sender, MessageEventArgs e)
+    {
+        await DisplayAlert(e.Title, e.Message, "OK");
+    }
+
+    private async void OnLoaded(object? sender, EventArgs e)
+    {
+        await _model.UpdateModel();
+    }
+
+    private void OnMenuGridRightSwiped(object? sender, SwipedEventArgs? e)
     {
         MainGrid.TranslateTo(0, 0, AnimationDuration, Easing.CubicOut);
         MainGrid.RotateYTo(0, AnimationDuration, Easing.CubicOut);
@@ -32,26 +60,40 @@ public partial class MainPage : ContentPage
         MainGrid.TranslateTo(-Width * 0.3, Height * 0.3, AnimationDuration, Easing.CubicOut);
         MainGrid.RotateYTo(10, AnimationDuration, Easing.CubicOut);
         MainGrid.ScaleTo(0.9, AnimationDuration, Easing.CubicOut);
-        
     }
 
     private async void OnProjectClicked(object? sender, EventArgs e)
     {
         await DisplayAlert("x", "omg", "x");
     }
-    
-    
+
+
     private async void OnCreateProjectTapped(object? sender, TappedEventArgs e)
     {
-        (sender as VisualElement)?.MakeFadeAnimation(FadeDuration);
+        //(sender as VisualElement)?.MakeFadeAnimation(FadeDuration);
 
         await Navigation.PushModalAsync(_createProjectPage, true);
     }
-    
+
     private async void OnSecondTapped(object? sender, TappedEventArgs e)
     {
-        (sender as VisualElement)?.MakeFadeAnimation(FadeDuration);
+        //(sender as VisualElement)?.MakeFadeAnimation(FadeDuration);
+
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+        string text = "Загрузка проектов";
+        ToastDuration duration = ToastDuration.Short;
+        double fontSize = 14;
+
+        var toast = Toast.Make(text, duration, fontSize);
+
+        await toast.Show(cancellationTokenSource.Token);
 
         await Navigation.PushModalAsync(_projectListPage, true);
+        //
+        // Task.Factory.StartNew(()=>
+        // {
+        //     Navigation.PushModalAsync(_projectListPage, true);
+        // });
     }
 }
