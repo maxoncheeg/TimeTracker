@@ -5,6 +5,7 @@ namespace TimeTracker.Views.Projects;
 
 public partial class CreateProjectPage : ContentPage
 {
+    private bool _isButtonPushed = false;
     private readonly IMessager _messager;
     
     public CreateProjectPage(CreateProjectViewModel model)
@@ -21,11 +22,18 @@ public partial class CreateProjectPage : ContentPage
 
     private async void ModelOnCloseCommandReceived()
     {
+        if (_isButtonPushed) return;
+        _isButtonPushed = true;
+        
         NameEntry.IsEnabled = false;
         DescriptionEditor.IsEnabled = false;
+        
         await Navigation.PopModalAsync(true);
+        
         NameEntry.IsEnabled = true;
         DescriptionEditor.IsEnabled = true;
+
+        _isButtonPushed = false;
     }
 
     private async void MessagerOnMessageReceived(object? sender, MessageEventArgs e)
