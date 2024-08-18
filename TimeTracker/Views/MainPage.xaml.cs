@@ -8,6 +8,7 @@ namespace TimeTracker.Views;
 
 public partial class MainPage : ContentPage
 {
+    private bool _isButtonPushed = false;
     private const uint AnimationDuration = 600u;
     private const uint FadeDuration = 150u;
 
@@ -64,24 +65,35 @@ public partial class MainPage : ContentPage
 
     private async void OnProjectClicked(object? sender, EventArgs e)
     {
+        if (_isButtonPushed) return;
+        _isButtonPushed = true;
+        
         await DisplayAlert("x", "omg", "x");
+        
+        
+        _isButtonPushed = false;
     }
 
 
     private async void OnCreateProjectTapped(object? sender, TappedEventArgs e)
     {
         //(sender as VisualElement)?.MakeFadeAnimation(FadeDuration);
-
+        if (_isButtonPushed) return;
+        _isButtonPushed = true;
+        
         await Navigation.PushModalAsync(_createProjectPage, true);
+
+        _isButtonPushed = false;
     }
 
-    private async void OnSecondTapped(object? sender, TappedEventArgs e)
+    private async void OpenProjectListPage(object? sender, TappedEventArgs e)
     {
-        //(sender as VisualElement)?.MakeFadeAnimation(FadeDuration);
-
+        if (_isButtonPushed) return;
+        _isButtonPushed = true;
+        
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
-        string text = "Загрузка проектов";
+        string text = "Загрузка проектов...";
         ToastDuration duration = ToastDuration.Short;
         double fontSize = 14;
 
@@ -90,10 +102,6 @@ public partial class MainPage : ContentPage
         await toast.Show(cancellationTokenSource.Token);
 
         await Navigation.PushModalAsync(_projectListPage, true);
-        //
-        // Task.Factory.StartNew(()=>
-        // {
-        //     Navigation.PushModalAsync(_projectListPage, true);
-        // });
+        _isButtonPushed = false;
     }
 }

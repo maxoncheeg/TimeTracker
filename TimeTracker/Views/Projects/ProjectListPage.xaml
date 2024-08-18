@@ -3,24 +3,94 @@
 <ContentPage
     x:Class="TimeTracker.Views.Projects.ProjectListPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid>
+        <toolkit:DockLayout BackgroundColor="{StaticResource GreenishWhite}" ShouldExpandLastChild="True">
+            <Label
+                FontFamily="CruinBold"
+                FontSize="28"
+                Grid.Row="0"
+                HorizontalTextAlignment="Center"
+                Margin="10,0"
+                Text="Список проектов"
+                TextColor="{StaticResource DarkGreen}"
+                TextTransform="Uppercase"
+                TextType="Text"
+                VerticalTextAlignment="Center"
+                toolkit:DockLayout.DockPosition="Top" />
+
             <CollectionView
                 HorizontalOptions="Start"
                 ItemsSource="{Binding Projects}"
                 Margin="20,0"
+                toolkit:DockLayout.DockPosition="Top"
                 x:Name="CollectionView">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <VerticalStackLayout>
-                                <Label Text="{Binding Name}" />
-                                <Label Text="{Binding Description}" />
-                            </VerticalStackLayout>
+                        <Grid
+                            Height="90"
+                            HeightRequest="90"
+                            Margin="0,5">
+                            <toolkit:DockLayout ShouldExpandLastChild="True">
+                                <Button
+                                    BackgroundColor="{StaticResource MediumGreen}"
+                                    CornerRadius="10"
+                                    FontFamily="CruinBold"
+                                    FontSize="25"
+                                    HeightRequest="90"
+                                    HorizontalOptions="Start"
+                                    Margin="3,0"
+                                    MinimumHeightRequest="90"
+                                    MinimumWidthRequest="90"
+                                    Text="{Binding Letters}"
+                                    TextColor="{StaticResource White}"
+                                    TextTransform="Uppercase"
+                                    VerticalOptions="Center"
+                                    WidthRequest="90"
+                                    toolkit:DockLayout.DockPosition="Left" />
+
+                                <Grid
+                                    HorizontalOptions="Start"
+                                    Margin="20,0"
+                                    VerticalOptions="Start"
+                                    toolkit:DockLayout.DockPosition="Right">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <Label
+                                        FontFamily="CruinBold"
+                                        FontSize="19"
+                                        HorizontalOptions="Start"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1"
+                                        Text="{Binding Name}"
+                                        TextColor="{StaticResource DarkGreen}"
+                                        toolkit:DockLayout.DockPosition="Top" />
+                                    <Label
+                                        Grid.Row="1"
+                                        HorizontalOptions="Start"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="2"
+                                        Text="{Binding Description}"
+                                        TextColor="{StaticResource MediumGreen}"
+                                        toolkit:DockLayout.DockPosition="Top" />
+                                </Grid>
+                            </toolkit:DockLayout>
+
+
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer
                                     Command="{Binding Path=BindingContext.OpenProjectCommand, Source={RelativeSource AncestorType={x:Type CollectionView}}}"
@@ -31,15 +101,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-            <!-- <Grid> -->
-            <!--     <Grid.Background> -->
-            <!--         <LinearGradientBrush EndPoint="1, 0.5" StartPoint="0, 0.5"> -->
-            <!--             <GradientStop Color="Transparent" Offset="0.8" /> -->
-            <!--             <GradientStop Color="#CAD2C5" Offset="0.9" /> -->
-            <!--         </LinearGradientBrush> -->
-            <!--     </Grid.Background> -->
-            <!-- </Grid> -->
-        </Grid>
+        </toolkit:DockLayout>
     </ContentPage.Content>
 </ContentPage>

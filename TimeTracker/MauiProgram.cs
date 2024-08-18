@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using TimeTracker.Shared.Data;
+using TimeTracker.Shared.Services.Naming;
 using TimeTracker.ViewModels;
 using TimeTracker.ViewModels.Projects;
 using TimeTracker.Views;
@@ -27,6 +28,13 @@ public static class MauiProgram
             .AddTransient<MainViewModel>()
             .AddTransient<CreateProjectViewModel>()
             .AddTransient<ProjectListViewModel>();
+
+        #endregion
+
+        #region Services
+
+        builder.Services
+            .AddScoped<INameAbbreviationService, NameAbbreviationService>();
 
         #endregion
 

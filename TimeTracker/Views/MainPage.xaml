@@ -5,6 +5,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <!--  Menu  -->
@@ -64,7 +71,7 @@
                             Text="All projects"
                             TextColor="WhiteSmoke">
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnSecondTapped" />
+                                <TapGestureRecognizer Tapped="OpenProjectListPage" />
                             </Label.GestureRecognizers>
 
                             <Label.Behaviors>
@@ -106,17 +113,42 @@
 
                 <Grid Grid.Row="1">
                     <VerticalStackLayout>
-                        <Label
-                            FontFamily="SoyuzGrotesk"
-                            FontSize="24"
-                            Grid.Row="0"
-                            HorizontalTextAlignment="Start"
-                            Margin="10,0"
-                            Text="recent projects"
-                            TextColor="#354F52"
-                            TextType="Text"
-                            VerticalTextAlignment="Center" />
-                        <Grid>
+                        <toolkit:DockLayout ShouldExpandLastChild="True">
+                            <Label
+                                FontFamily="SoyuzGrotesk"
+                                FontSize="24"
+                                Grid.Row="0"
+                                HorizontalTextAlignment="Start"
+                                Margin="10,0"
+                                Text="НЕДАВНИЕ ПРОЕКТЫ"
+                                TextColor="{StaticResource MediumGreen}"
+                                TextType="Text"
+                                VerticalTextAlignment="Center"
+                                toolkit:DockLayout.DockPosition="Top" />
+                            <Label
+                                FontFamily="CruinMedium"
+                                FontSize="24"
+                                Grid.Row="0"
+                                HorizontalTextAlignment="End"
+                                Margin="10,0"
+                                Text="...другие проекты"
+                                TextColor="{StaticResource LightGreen}"
+                                TextType="Text"
+                                VerticalTextAlignment="Center"
+                                toolkit:DockLayout.DockPosition="Bottom">
+
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OpenProjectListPage" />
+                                </Label.GestureRecognizers>
+
+                                <Label.Behaviors>
+                                    <toolkit:AnimationBehavior>
+                                        <toolkit:AnimationBehavior.AnimationType>
+                                            <toolkit:FadeAnimation Opacity="0.7" />
+                                        </toolkit:AnimationBehavior.AnimationType>
+                                    </toolkit:AnimationBehavior>
+                                </Label.Behaviors>
+                            </Label>
                             <CollectionView
                                 HorizontalOptions="Start"
                                 ItemsSource="{Binding Projects}"
@@ -155,7 +187,7 @@
                             <!--         </LinearGradientBrush> -->
                             <!--     </Grid.Background> -->
                             <!-- </Grid> -->
-                        </Grid>
+                        </toolkit:DockLayout>
                     </VerticalStackLayout>
                 </Grid>
             </Grid>
