@@ -2,19 +2,17 @@
 using MediatR;
 using TimeTracker.Domain.CQRS.Queries.Projects;
 using TimeTracker.Domain.CQRS.Responses.Projects;
+using TimeTracker.Shared.Services.Naming;
 using TimeTracker.ViewModels.Commands;
 
 namespace TimeTracker.ViewModels;
 
-public class UiProjectView(int id, string letters)
-{
-    public int Id { get; } = id;
-    public string Letters { get; } = letters;
-}
+public record UiProjectView(int Id, string Letters);
 
 public class MainViewModel : AbstractViewModel
 {
     private readonly IMediator _mediator;
+    private readonly INameAbbreviationService _nameAbbreviationService;
 
     #region Bindings
 
@@ -39,17 +37,23 @@ public class MainViewModel : AbstractViewModel
 
     #endregion
 
-    public MainViewModel(IMediator mediator)
+    public MainViewModel(IMediator mediator, INameAbbreviationService nameAbbreviationService)
     {
         _mediator = mediator;
+        _nameAbbreviationService = nameAbbreviationService;
     }
 
     public override async Task UpdateModel()
     {
         var result = await _mediator.Send(new GetProjectNamesByDateUpdatedQuery() { Take = 5 });
-
-
-        _projects = [..result.Select(p => new UiProjectView(p.ProjectId, p.Name[..2]))];
-        Notify(nameof(Projects));
+        
+        _projects =
+        [
+            ..result.Select(p => new UiProjectView(
+                p.ProjectId, 
+                _nameAbbreviationService.GetAbbreviation(p.Name)))
+        ];
+        
+        Notify(nameof(Projects)); 
     }
 }
